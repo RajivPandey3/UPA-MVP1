@@ -1,0 +1,8 @@
+{
+  "name": "com.upa.asset-scanner",
+  "version": "0.1.0",
+  "displayName": "UPA Asset Scanner",
+  "description": "Read-only Unity Editor asset X-Ray scanner for UPA MVP-1.",
+  "unity": "2021.3",
+  "author": { "name": "UPA" }
+}

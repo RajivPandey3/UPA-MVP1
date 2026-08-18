@@ -1,0 +1,9 @@
+{
+  "name": "change-gravity",
+  "intent": "Set global physics gravity to 0,-9.81,0.",
+  "expectedOperations": [
+    "settings.physics_gravity"
+  ],
+  "requiresApproval": true,
+  "expectedRisk": "High"
+}

@@ -1,0 +1,12 @@
+using UPA.Core;
+namespace UPA.ProjectModel;
+public sealed record ProjectModel(EntityId Id, string Name, string RootPath, ProjectEnvironment Environment, IReadOnlyList<ScriptModel> Scripts, IReadOnlyList<SceneModel> Scenes, IReadOnlyList<AssetModel> Assets, IReadOnlyList<ReferenceModel> References, IReadOnlyList<DependencyModel> Dependencies);
+public sealed record ProjectEnvironment(string? UnityVersion, string? RenderPipeline);
+public sealed record ScriptModel(EntityId Id, string Path, string? Namespace, IReadOnlyList<TypeModel> Types);
+public sealed record TypeModel(EntityId Id, string Name, string Kind, string? BaseType);
+public sealed record SceneModel(EntityId Id, string Path, IReadOnlyList<GameObjectModel> RootObjects);
+public sealed record GameObjectModel(EntityId Id, string Name, EntityId? ParentId, IReadOnlyList<ComponentModel> Components);
+public sealed record ComponentModel(EntityId Id, string TypeName);
+public sealed record AssetModel(EntityId Id, string Path, string Type);
+public sealed record ReferenceModel(EntityId SourceId, EntityId TargetId, string Kind, bool Resolved);
+public sealed record DependencyModel(EntityId SourceId, EntityId TargetId, string Kind);

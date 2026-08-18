@@ -1,0 +1,8 @@
+{
+  "name": "com.upa.unity-executor",
+  "version": "0.1.0",
+  "displayName": "UPA Unity Executor",
+  "description": "Governed Unity Editor mutation adapter for UPA MVP-1.",
+  "unity": "2021.3",
+  "author": { "name": "UPA" }
+}

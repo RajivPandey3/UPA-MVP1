@@ -1,0 +1,10 @@
+{
+  "README.md": "fce1dd0bb7d89a6b68c351d523b5d6d48062b6adcd098cdc2190b83cb54964cf",
+  "docs/MVP1-RELEASE-CHECKLIST.md": "6ee5020fa13cf92665cce709bd380a6dbc78cbc841452dc24dfd1646061dc5d3",
+  "docs/ONE-COMMAND-VERIFICATION.md": "a12554cff84157a4ef539390566dcf4e802211ffeee4dfcd828ed889a1dce309",
+  "governance/MVP1-GOVERNANCE-FREEZE.md": "34996ebf9c8f3bde35d2b9273de8bdd2bac562e316208afc410f1a69403035db",
+  "release-manifest.json": "b3272c6310dd7693f649150c24a634933f7a252840613683c9770c99a7d250b4",
+  "verification/verification-report.schema.json": "e890d72e6cfedbddda0b97e416a936cb5af19da3298874e864ff5ca0ba50ad66",
+  "verification/verify.py": "ac7596dee12af16ba498e343e6eb0860c2cc03a5a921533f4e4134ddcebc6b63",
+  "verification-report.json": "2ce744eb22c392ce82221bb38cea08be90aa1ccdc0581efa462ebfb88c4b1742"
+}

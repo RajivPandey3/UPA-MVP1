@@ -1,0 +1,8 @@
+{
+  "name": "com.upa.scene-scanner",
+  "version": "0.1.0",
+  "displayName": "UPA Scene Scanner",
+  "description": "Read-only Unity Editor scene X-Ray scanner for UPA MVP-1.",
+  "unity": "2021.3",
+  "author": { "name": "UPA" }
+}

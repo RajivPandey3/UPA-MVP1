@@ -1,0 +1,33 @@
+{
+  "product": "UPA",
+  "milestone": "MVP-1",
+  "release": "1.8.0-rc1",
+  "status": "release-candidate",
+  "governance": {
+    "auto_approval": false,
+    "preview_bypass": false,
+    "validation_bypass": false,
+    "standing_execution_authority": false
+  },
+  "required_components": [
+    "ProjectModel",
+    "Health",
+    "IntentGrammar",
+    "OperationRegistry",
+    "PlanCompiler",
+    "Validator",
+    "Preview",
+    "Approval",
+    "PlanToExecutorAdapter",
+    "TargetResolver",
+    "UnityExecutor",
+    "TransactionUndo",
+    "Audit",
+    "VerificationHarness"
+  ],
+  "verification_policy": {
+    "green_requires_zero_failures": true,
+    "blocked_cases_are_not_passes": true,
+    "skipped_cases_are_not_passes": true
+  }
+}

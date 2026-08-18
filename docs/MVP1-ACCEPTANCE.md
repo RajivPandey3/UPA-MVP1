@@ -1,0 +1,12 @@
+# MVP-1 Acceptance Gate
+- Read-only scan enforced
+- Project metadata discovered
+- C# scripts/types discovered
+- Scenes/GameObjects/components discovered
+- Prefabs/assets discovered
+- References classified
+- Dependency graph generated
+- Facts/inferences separated
+- Deterministic health report
+- No target-project mutation
+- Fixture tests pass

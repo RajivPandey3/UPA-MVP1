@@ -1,0 +1,12 @@
+{
+  "name": "create-player",
+  "intent": "Create a Player with Rigidbody, collider and material.",
+  "expectedOperations": [
+    "scene.create_gameobject",
+    "component.add_rigidbody",
+    "component.add_collider",
+    "asset.assign_material"
+  ],
+  "requiresApproval": true,
+  "expectedRisk": "Medium"
+}

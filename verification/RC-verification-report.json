@@ -1,0 +1,11 @@
+{
+  "release": "1.8.0-rc1",
+  "status": "PASS",
+  "failures": [],
+  "checks": {
+    "manifest": true,
+    "governance": true,
+    "component_inventory": true,
+    "verification_policy": true
+  }
+}

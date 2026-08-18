@@ -1,0 +1,5 @@
+{
+  "status": "PENDING",
+  "reason": "RC manifest verification passed, but integrated source requires runtime build/test verification.",
+  "release": "1.8.0-rc1"
+}

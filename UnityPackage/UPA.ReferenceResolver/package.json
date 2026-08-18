@@ -1,0 +1,8 @@
+{
+  "name": "com.upa.reference-resolver",
+  "version": "0.1.0",
+  "displayName": "UPA Reference Resolver",
+  "description": "Read-only Unity Editor reference and dependency graph builder for UPA MVP-1.",
+  "unity": "2021.3",
+  "author": { "name": "UPA" }
+}

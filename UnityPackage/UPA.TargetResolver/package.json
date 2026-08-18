@@ -1,0 +1,8 @@
+{
+  "name": "com.upa.target-resolver",
+  "version": "0.1.1",
+  "displayName": "UPA Target Resolver",
+  "description": "Stable Unity object targeting and operation contracts for UPA.",
+  "unity": "2021.3",
+  "author": { "name": "UPA" }
+}

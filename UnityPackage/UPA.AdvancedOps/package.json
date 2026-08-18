@@ -1,0 +1,8 @@
+{
+  "name": "com.upa.advanced-ops",
+  "version": "0.1.2",
+  "displayName": "UPA Advanced Operations",
+  "description": "Governed Asset, Prefab and Project Settings operations for UPA.",
+  "unity": "2021.3",
+  "author": { "name": "UPA" }
+}

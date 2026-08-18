@@ -1,0 +1,8 @@
+{
+  "name": "com.upa.settings-ops",
+  "version": "0.1.3",
+  "displayName": "UPA Project Settings and Import Operations",
+  "description": "Governed typed ProjectSettings and importer operations for UPA.",
+  "unity": "2021.3",
+  "author": { "name": "UPA" }
+}

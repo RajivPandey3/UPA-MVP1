@@ -1,0 +1,9 @@
+{
+  "name": "health-check",
+  "intent": "Check project health.",
+  "expectedOperations": [
+    "validation.run_health"
+  ],
+  "requiresApproval": false,
+  "expectedRisk": "Low"
+}
