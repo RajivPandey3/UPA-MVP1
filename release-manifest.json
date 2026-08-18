@@ -1,8 +1,8 @@
 {
   "product": "UPA",
   "milestone": "MVP-1",
-  "release": "1.8.0-rc1",
-  "status": "release-candidate",
+  "release": "1.8-final",
+  "status": "verified-source-baseline",
   "governance": {
     "auto_approval": false,
     "preview_bypass": false,
@@ -29,5 +29,11 @@
     "green_requires_zero_failures": true,
     "blocked_cases_are_not_passes": true,
     "skipped_cases_are_not_passes": true
+  },
+  "verification_state": {
+    "dotnet_build": "PASS",
+    "dotnet_tests": "PASS",
+    "unity_editor": "NOT-VERIFIED",
+    "mvp1_mvp2_integration": "NOT-VERIFIED"
   }
 }

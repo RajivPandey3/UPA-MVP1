@@ -1,5 +1,16 @@
 {
-  "status": "PENDING",
-  "reason": "RC manifest verification passed, but integrated source requires runtime build/test verification.",
-  "release": "1.8.0-rc1"
+  "status": "VERIFIED",
+  "release": "1.8-final",
+  "verified_commit": "7eceda54e0742e43a585db75d5adc8358921d322",
+  "artifact": "UPA_MVP1_FINAL_VERIFIED_v1.8.zip",
+  "artifact_sha256": "1E503E7DF034F548FCD6133B22C5A5EDF4F8FB373FCDA1D3CBF6A29143CA2176",
+  "checks": {
+    "dotnet_build": "PASS",
+    "dotnet_tests": "PASS",
+    "test_failures": 0,
+    "git_tag": "PASS",
+    "artifact_hash": "PASS",
+    "unity_editor_verification": "NOT-VERIFIED",
+    "mvp1_mvp2_integration": "NOT-VERIFIED"
+  }
 }
