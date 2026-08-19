@@ -33,7 +33,15 @@
   "verification_state": {
     "dotnet_build": "PASS",
     "dotnet_tests": "PASS",
-    "unity_editor": "NOT-VERIFIED",
+    "unity_editor": "PASS",
+    "unity_editor_tests": {
+      "total": 13,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "platform": "EditMode",
+      "verification_copy": "unity-package-test"
+    },
     "mvp1_mvp2_integration": "NOT-VERIFIED"
   }
 }
