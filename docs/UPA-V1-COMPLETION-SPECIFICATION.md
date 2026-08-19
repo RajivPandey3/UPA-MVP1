@@ -24,8 +24,8 @@ A complete UPA V1.0 system MUST allow an authorized entity to:
 ## 4. Completion Criteria (Definition of Done)
 To formally declare **UPA V1.0 COMPLETE**, the following must be true:
 1. The end-to-end outcome (Section 3) is programmatically verified and unbroken. (Currently: **PASS**)
-2. **[OPEN]** DECISION-01 must be resolved.
-3. **[OPEN]** DECISION-02 must be resolved.
+2. **[RATIFIED] DECISION-01:** Consumer Verification Interface is **NOT REQUIRED FOR V1.0**.
+3. **[RATIFIED] DECISION-02:** Triggering Interface (CLI/UI) is **NOT REQUIRED FOR V1.0**.
 
 ## 5. Explicit Non-Goals
 To prevent scope creep, the following are explicitly **NOT REQUIRED** for V1.0 unless mandated by the resolution of open decisions:
@@ -34,8 +34,10 @@ To prevent scope creep, the following are explicitly **NOT REQUIRED** for V1.0 u
 * **Artifact Packaging:** Binding certificates to physical release packages (e.g., ZIP, `.unitypackage`) is a distribution mechanism implementation, not the core trust architecture.
 * **MVP-4:** Not assumed to exist. Development remains frozen unless closing the Completion Criteria explicitly necessitates a new implementation milestone.
 
-## 6. Open Decisions
-These genuinely unknown variables must be decided before declaring V1.0 complete:
+## 6. Ratified Delivery Boundary
+The executive authority has formally ratified **PATH 1 (Library / SDK Delivery)**. UPA V1.0 is delivered as a foundational, general-purpose governed automation and provenance SDK/API.
 
-* **DECISION-01:** Does UPA V1.0 require an explicit "Verification Interface" (a way for an external consumer to validate an artifact against the MVP-2 registry) to be considered feature-complete?
-* **DECISION-02:** Does UPA V1.0 require a specific "Triggering Interface" (CLI or Editor extension) for human interaction, or do we deliver V1.0 strictly as a foundational SDK/Library?
+* **DECISION-01 (Consumer Verification):** NOT REQUIRED FOR V1.0. The ability for an external consumer to independently verify evidence is a deferred capability. It is not permanently rejected, but it is not a prerequisite to close the V1.0 scope.
+* **DECISION-02 (Triggering Interface):** NOT REQUIRED FOR V1.0. A CLI, Editor UI, or external invocation surface is out of scope for V1.0.
+
+**Final Status:** V1.0 Scope is **CLOSED**. The system is eligible for final verification to be declared COMPLETE.
