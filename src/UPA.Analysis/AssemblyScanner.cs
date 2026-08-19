@@ -5,7 +5,7 @@ namespace UPA.Analysis;
 
 public sealed class AssemblyScanner
 {
-    public AssemblyScanResult Scan(ScanContext context)
+    public AssemblyScanResult Scan(ScanContext context, CancellationToken cancellationToken = default)
     {
         if (!context.ReadOnly)
             throw new InvalidOperationException("MVP-1 AssemblyScanner is read-only.");
@@ -26,7 +26,10 @@ public sealed class AssemblyScanner
             .OrderBy(p => p, StringComparer.Ordinal)
             .ToArray();
 
-        var models = files.Select(p => ParseAsmdef(root, p)).ToArray();
+        var models = files.Select(p => {
+            cancellationToken.ThrowIfCancellationRequested();
+            return ParseAsmdef(root, p);
+        }).ToArray();
         var names = models.ToDictionary(x => x.Name, StringComparer.Ordinal);
 
         var deps = new List<AssemblyDependencyModel>();

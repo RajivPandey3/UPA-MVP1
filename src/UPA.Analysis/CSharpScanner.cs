@@ -19,11 +19,16 @@ public sealed class CSharpScanner
         new(@"(?<attrs>(?:\[[^\]]+\]\s*)*)(?<access>private|public|protected)?\s*(?<type>[A-Za-z_][\w.<>,\[\]?]*)\s+(?<name>[A-Za-z_][\w]*)\s*(?:=\s*[^;]+)?;",
             RegexOptions.Compiled);
 
+    private static readonly Regex AttrRegex = new(@"\[([^\]]+)\]", RegexOptions.Compiled);
+
+    private static readonly Regex LifecycleRegex =
+        new(@"\b(Awake|OnEnable|Start|Update|FixedUpdate|LateUpdate|OnDisable|OnDestroy|OnTriggerEnter|OnCollisionEnter)\s*\(", RegexOptions.Compiled);
+
     private static readonly string[] LifecycleMethods =
         ["Awake", "OnEnable", "Start", "Update", "FixedUpdate", "LateUpdate",
          "OnDisable", "OnDestroy", "OnTriggerEnter", "OnCollisionEnter"];
 
-    public IReadOnlyList<CSharpScriptModel> Scan(ScanContext context)
+    public IReadOnlyList<CSharpScriptModel> Scan(ScanContext context, CancellationToken cancellationToken = default)
     {
         if (!context.ReadOnly)
             throw new InvalidOperationException("MVP-1 CSharpScanner is read-only.");
@@ -37,7 +42,10 @@ public sealed class CSharpScanner
             .OrderBy(p => p, StringComparer.Ordinal)
             .ToArray();
 
-        return files.Select(p => ScanFile(root, p)).ToArray();
+        return files.Select(p => {
+            cancellationToken.ThrowIfCancellationRequested();
+            return ScanFile(root, p);
+        }).ToArray();
     }
 
     private static CSharpScriptModel ScanFile(string root, string path)
@@ -62,13 +70,13 @@ public sealed class CSharpScanner
 
             var name = m.Groups["name"].Value;
             var baseText = m.Groups["base"].Success ? m.Groups["base"].Value.Trim() : null;
-            var line = text[..m.Index].Count(c => c == '\n') + 1;
+            var line = text.AsSpan(0, m.Index).Count('\n') + 1;
             // TypeRegex consumes leading attributes as part of the match, so m.Index
             // points at the first attribute rather than the declaration keyword. Use the
             // captured attribute group directly; otherwise [RequireComponent] is missed.
             var attrText = m.Groups["attrs"].Success ? m.Groups["attrs"].Value : string.Empty;
 
-            var attrs = Regex.Matches(attrText, @"\[([^\]]+)\]")
+            var attrs = AttrRegex.Matches(attrText)
                 .Select(x => x.Groups[1].Value.Trim())
                 .Distinct(StringComparer.Ordinal).ToArray();
 
@@ -82,8 +90,9 @@ public sealed class CSharpScanner
             var body = bodyStart >= 0 && bodyEnd > bodyStart
                 ? text[bodyStart..(bodyEnd + 1)] : string.Empty;
 
-            var lifecycle = LifecycleMethods
-                .Where(method => Regex.IsMatch(body, $@"\b{Regex.Escape(method)}\s*\("))
+            var lifecycle = LifecycleRegex.Matches(body)
+                .Select(x => x.Groups[1].Value)
+                .Distinct(StringComparer.Ordinal)
                 .ToArray();
 
             var serialized = SerializedRegex.Matches(body)

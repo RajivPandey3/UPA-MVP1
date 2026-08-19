@@ -1,0 +1,7 @@
+// Validating benchmarks:
+// Benchmark P01_P02_StartupIdleBenchmarks.P01_Baseline_Idle: Job-IJPESX(IterationCount=5, LaunchCount=1, WarmupCount=3)
+//    * BenchmarkDotNet requires dotnet SDK to be installed or path to local dotnet cli provided in explicit way using `--cli` argument, benchmark 'P01_P02_StartupIdleBenchmarks.P01_Baseline_Idle: Job-IJPESX(IterationCount=5, LaunchCount=1, WarmupCount=3)' will not be executed
+
+// Benchmark P01_P02_StartupIdleBenchmarks.P02_UPA_Initialized_Idle: Job-IJPESX(IterationCount=5, LaunchCount=1, WarmupCount=3)
+//    * BenchmarkDotNet requires dotnet SDK to be installed or path to local dotnet cli provided in explicit way using `--cli` argument, benchmark 'P01_P02_StartupIdleBenchmarks.P02_UPA_Initialized_Idle: Job-IJPESX(IterationCount=5, LaunchCount=1, WarmupCount=3)' will not be executed
+

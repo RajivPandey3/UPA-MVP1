@@ -13,10 +13,10 @@ public sealed class ProjectScanner : IProjectScanner
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        return Task.FromResult(ScanCore(context));
+        return Task.Run(() => ScanCore(context, cancellationToken), cancellationToken);
     }
 
-    private static ScanResult ScanCore(ScanContext context)
+    private static ScanResult ScanCore(ScanContext context, CancellationToken cancellationToken = default)
     {
         if (!context.ReadOnly)
             throw new InvalidOperationException("MVP-1 scanners are read-only.");
@@ -32,10 +32,12 @@ public sealed class ProjectScanner : IProjectScanner
         var projectId = EntityId.FromStableKey(root);
         var projectName = new DirectoryInfo(root).Name;
 
+        cancellationToken.ThrowIfCancellationRequested();
+
         var unityVersion = ReadUnityVersion(root, diagnostics);
         var packages = ReadPackages(root, diagnostics);
         var pipeline = DetectRenderPipeline(packages);
-        var assemblies = DiscoverAssemblies(root, diagnostics);
+        var assemblies = DiscoverAssemblies(root, diagnostics, cancellationToken);
 
         var settingsFiles = Directory.Exists(Path.Combine(root, "ProjectSettings"))
             ? Directory.EnumerateFiles(
@@ -153,7 +155,8 @@ public sealed class ProjectScanner : IProjectScanner
 
     private static IReadOnlyList<AssemblyDefinitionInfo> DiscoverAssemblies(
         string root,
-        List<Diagnostic> diagnostics)
+        List<Diagnostic> diagnostics,
+        CancellationToken cancellationToken)
     {
         var assets = Path.Combine(root, "Assets");
         if (!Directory.Exists(assets))
@@ -163,6 +166,7 @@ public sealed class ProjectScanner : IProjectScanner
                 assets, "*.asmdef", SearchOption.AllDirectories)
             .Select(path =>
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var relative = Path.GetRelativePath(root, path).Replace('\\', '/');
                 var name = Path.GetFileNameWithoutExtension(path);
 
