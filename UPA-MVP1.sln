@@ -1,50 +1,58 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Adapter", "src/UPA.Adapter/UPA.Adapter.csproj", "{AEF5AB10-CF8B-5F03-B545-BEF95300EFC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Adapter", "src\UPA.Adapter\UPA.Adapter.csproj", "{AEF5AB10-CF8B-5F03-B545-BEF95300EFC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Analysis", "src/UPA.Analysis/UPA.Analysis.csproj", "{7912C7B1-B1A3-594D-AC9F-8F934D74AB31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Analysis", "src\UPA.Analysis\UPA.Analysis.csproj", "{7912C7B1-B1A3-594D-AC9F-8F934D74AB31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Core", "src/UPA.Core/UPA.Core.csproj", "{CFDA8C55-7DA5-5BB4-80B6-41ACBC1C62C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Core", "src\UPA.Core\UPA.Core.csproj", "{CFDA8C55-7DA5-5BB4-80B6-41ACBC1C62C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Execution", "src/UPA.Execution/UPA.Execution.csproj", "{8B3D0869-FF36-5EB0-A53E-735CAA312515}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Execution", "src\UPA.Execution\UPA.Execution.csproj", "{8B3D0869-FF36-5EB0-A53E-735CAA312515}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Governance", "src/UPA.Governance/UPA.Governance.csproj", "{7A006EC3-B754-5E5F-B231-6534B815792B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Governance", "src\UPA.Governance\UPA.Governance.csproj", "{7A006EC3-B754-5E5F-B231-6534B815792B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Health", "src/UPA.Health/UPA.Health.csproj", "{53F33B38-C682-53FD-8246-C45AD22E994B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Health", "src\UPA.Health\UPA.Health.csproj", "{53F33B38-C682-53FD-8246-C45AD22E994B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Operations", "src/UPA.Operations/UPA.Operations.csproj", "{7C300A6B-3CD1-5064-9D06-363BCED23FFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Operations", "src\UPA.Operations\UPA.Operations.csproj", "{7C300A6B-3CD1-5064-9D06-363BCED23FFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Pipeline", "src/UPA.Pipeline/UPA.Pipeline.csproj", "{4D5815A6-7082-5FD7-86EA-B03844215A2E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Pipeline", "src\UPA.Pipeline\UPA.Pipeline.csproj", "{4D5815A6-7082-5FD7-86EA-B03844215A2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Planning", "src/UPA.Planning/UPA.Planning.csproj", "{049C5EF6-EC70-590B-9801-D611ACBE7FC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Planning", "src\UPA.Planning\UPA.Planning.csproj", "{049C5EF6-EC70-590B-9801-D611ACBE7FC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.ProjectModel", "src/UPA.ProjectModel/UPA.ProjectModel.csproj", "{D1C5DAB2-4F30-520F-BC1D-62FF63BEED88}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.ProjectModel", "src\UPA.ProjectModel\UPA.ProjectModel.csproj", "{D1C5DAB2-4F30-520F-BC1D-62FF63BEED88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Verification", "src/UPA.Verification/UPA.Verification.csproj", "{10F92661-B581-5CFF-A902-73B8B0320A05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Verification", "src\UPA.Verification\UPA.Verification.csproj", "{10F92661-B581-5CFF-A902-73B8B0320A05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Adapter.Tests", "tests/UPA.Adapter.Tests/UPA.Adapter.Tests.csproj", "{82726A64-349A-55E8-9B40-79280D096D00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Adapter.Tests", "tests\UPA.Adapter.Tests\UPA.Adapter.Tests.csproj", "{82726A64-349A-55E8-9B40-79280D096D00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Analysis.Tests", "tests/UPA.Analysis.Tests/UPA.Analysis.Tests.csproj", "{557E7E12-4DD5-585C-BF39-7ABCDF4486C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Analysis.Tests", "tests\UPA.Analysis.Tests\UPA.Analysis.Tests.csproj", "{557E7E12-4DD5-585C-BF39-7ABCDF4486C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Core.Tests", "tests/UPA.Core.Tests/UPA.Core.Tests.csproj", "{3E575E67-4725-5B48-A544-88DAFBA39745}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Core.Tests", "tests\UPA.Core.Tests\UPA.Core.Tests.csproj", "{3E575E67-4725-5B48-A544-88DAFBA39745}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Execution.Tests", "tests/UPA.Execution.Tests/UPA.Execution.Tests.csproj", "{B09F2728-42D1-50AB-B28C-3B3E846C8AE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Execution.Tests", "tests\UPA.Execution.Tests\UPA.Execution.Tests.csproj", "{B09F2728-42D1-50AB-B28C-3B3E846C8AE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Governance.Tests", "tests/UPA.Governance.Tests/UPA.Governance.Tests.csproj", "{05734D2C-7C39-5464-8349-CAE04B2E01A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Governance.Tests", "tests\UPA.Governance.Tests\UPA.Governance.Tests.csproj", "{05734D2C-7C39-5464-8349-CAE04B2E01A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Health.Tests", "tests/UPA.Health.Tests/UPA.Health.Tests.csproj", "{1AE05CE9-EEF5-5E22-B840-187F88ACE026}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Health.Tests", "tests\UPA.Health.Tests\UPA.Health.Tests.csproj", "{1AE05CE9-EEF5-5E22-B840-187F88ACE026}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Operations.Tests", "tests/UPA.Operations.Tests/UPA.Operations.Tests.csproj", "{2B9A319D-939E-5085-8EBE-0948F51532A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Operations.Tests", "tests\UPA.Operations.Tests\UPA.Operations.Tests.csproj", "{2B9A319D-939E-5085-8EBE-0948F51532A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Pipeline.Tests", "tests/UPA.Pipeline.Tests/UPA.Pipeline.Tests.csproj", "{E5A4FBFA-3750-548C-94B4-893B500D79EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Pipeline.Tests", "tests\UPA.Pipeline.Tests\UPA.Pipeline.Tests.csproj", "{E5A4FBFA-3750-548C-94B4-893B500D79EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Planning.Tests", "tests/UPA.Planning.Tests/UPA.Planning.Tests.csproj", "{916C7F88-EFC8-5CE5-9FF4-78E7A7E64BAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Planning.Tests", "tests\UPA.Planning.Tests\UPA.Planning.Tests.csproj", "{916C7F88-EFC8-5CE5-9FF4-78E7A7E64BAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.ProjectModel.Tests", "tests/UPA.ProjectModel.Tests/UPA.ProjectModel.Tests.csproj", "{68BBDB98-BC55-532A-B8CD-33013421A30F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.ProjectModel.Tests", "tests\UPA.ProjectModel.Tests\UPA.ProjectModel.Tests.csproj", "{68BBDB98-BC55-532A-B8CD-33013421A30F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Verification.Tests", "tests/UPA.Verification.Tests/UPA.Verification.Tests.csproj", "{7DE520AD-8778-5514-8ABB-403665C7EB5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Verification.Tests", "tests\UPA.Verification.Tests\UPA.Verification.Tests.csproj", "{7DE520AD-8778-5514-8ABB-403665C7EB5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D63D69AE-0A60-444A-96A1-FAB12B80F5A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.MVP3.TrustEmission", "src\UPA.MVP3.TrustEmission\UPA.MVP3.TrustEmission.csproj", "{DF089B13-22ED-43BE-837A-8E6AF8D9BDD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{76C3759C-74A7-42EC-B499-46B89D2A0F12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.MVP3.TrustEmission.Tests", "tests\UPA.MVP3.TrustEmission.Tests\UPA.MVP3.TrustEmission.Tests.csproj", "{EBA9702A-53CA-4BB7-9589-AD0482BC5144}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -140,8 +148,20 @@ Global
 		{7DE520AD-8778-5514-8ABB-403665C7EB5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DE520AD-8778-5514-8ABB-403665C7EB5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DE520AD-8778-5514-8ABB-403665C7EB5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF089B13-22ED-43BE-837A-8E6AF8D9BDD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF089B13-22ED-43BE-837A-8E6AF8D9BDD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF089B13-22ED-43BE-837A-8E6AF8D9BDD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF089B13-22ED-43BE-837A-8E6AF8D9BDD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBA9702A-53CA-4BB7-9589-AD0482BC5144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBA9702A-53CA-4BB7-9589-AD0482BC5144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBA9702A-53CA-4BB7-9589-AD0482BC5144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBA9702A-53CA-4BB7-9589-AD0482BC5144}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF089B13-22ED-43BE-837A-8E6AF8D9BDD5} = {D63D69AE-0A60-444A-96A1-FAB12B80F5A0}
+		{EBA9702A-53CA-4BB7-9589-AD0482BC5144} = {76C3759C-74A7-42EC-B499-46B89D2A0F12}
 	EndGlobalSection
 EndGlobal
