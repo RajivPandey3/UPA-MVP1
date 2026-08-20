@@ -54,7 +54,7 @@ namespace UPA.Performance.Benchmarks.Scenarios
 
             // WARMUP
             projectScanner.Scan(context);
-            csharpScanner.Scan(context);
+            csharpScanner.ScanAsync(context).GetAwaiter().GetResult();
             asmScanner.Scan(context);
 
             GC.Collect();
@@ -75,7 +75,7 @@ namespace UPA.Performance.Benchmarks.Scenarios
             long t2 = sw.ElapsedMilliseconds;
 
             // 3. C# Script Scan (Reads and regex-matches ALL .cs files)
-            var cResult = csharpScanner.Scan(context);
+            var cResult = csharpScanner.ScanAsync(context).GetAwaiter().GetResult();
             long t3 = sw.ElapsedMilliseconds;
 
             sw.Stop();

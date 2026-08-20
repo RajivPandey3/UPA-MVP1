@@ -1,0 +1,50 @@
+using System;
+using UnityEngine;
+using System.Collections.Generic;
+
+namespace Game.Core.Complex 
+{
+    [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(Rigidbody))]
+    [AddComponentMenu("Game/Complex Player")]
+    public sealed class ComplexPlayer : MonoBehaviour, IPlayer
+    {
+        [SerializeField] private float _speed = 10.5f;
+        [SerializeReference] public IWeapon _weapon;
+        public int Health; // Should be serialized because it's public
+        private int _internalState; // Should NOT be serialized
+
+        void Awake() 
+        {
+            // string test
+            var s = "class Dummy { }";
+            var s2 = "}\"";
+        }
+
+        protected override void Start() 
+        {
+        }
+
+        private void Update() 
+        {
+            if (Health < 0) {
+                Die();
+            }
+        }
+
+        public void OnTriggerEnter(Collider other) 
+        {
+        }
+    }
+
+    public struct PlayerStats 
+    {
+        public int Kills;
+        [SerializeField] private int Deaths;
+    }
+
+    internal interface IPlayer 
+    {
+        void Jump();
+    }
+}

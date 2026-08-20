@@ -58,7 +58,7 @@ namespace UPA.Performance.Benchmarks.Scenarios
         [Benchmark]
         public object ProfileCurrentScanner()
         {
-            return _scanner.Scan(_context);
+            return _scanner.ScanAsync(_context).GetAwaiter().GetResult();
         }
     }
 }

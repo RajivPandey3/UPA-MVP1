@@ -19,14 +19,13 @@ namespace UPA.Performance.Benchmarks.Scenarios
         [GlobalSetup]
         public void Setup()
         {
-            _tempDir = Path.Combine(Path.GetTempPath(), "UPA_P05_" + Guid.NewGuid().ToString());
+            _tempDir = Path.Combine(Path.GetTempPath(), "UPA_P05_" + "UPA_P05_BenchmarkProject");
             Directory.CreateDirectory(_tempDir);
             var assets = Path.Combine(_tempDir, "Assets");
             Directory.CreateDirectory(assets);
             Directory.CreateDirectory(Path.Combine(_tempDir, "ProjectSettings"));
             File.WriteAllText(Path.Combine(_tempDir, "ProjectSettings", "ProjectVersion.txt"), "m_EditorVersion: 6000.0.0f1\n");
             
-            // Generate exactly 10,000 .cs files and 500 .asmdef files
             int fileCount = 10000;
             int asmdefCount = 500;
 
@@ -56,11 +55,56 @@ namespace UPA.Performance.Benchmarks.Scenarios
         }
 
         [Benchmark]
-        public object FullPipelineScan()
+        public async System.Threading.Tasks.Task<object> P05_C_Cold()
         {
-            var p = _projectScanner.Scan(_context);
-            var a = _assemblyScanner.Scan(_context);
-            var c = _csharpScanner.Scan(_context);
+            using var sha256 = System.Security.Cryptography.SHA256.Create();
+            var hashBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(_tempDir));
+            var hash = BitConverter.ToUInt64(hashBytes, 0);
+            var cacheFile = Path.Combine(Path.GetTempPath(), $"upa_bin_cache_{hash:x16}.bin");
+            if (File.Exists(cacheFile)) File.Delete(cacheFile);
+            
+            var c = await _csharpScanner.ScanDeltaAsync(_context);
+            return c;
+        }
+
+        [Benchmark]
+        public async System.Threading.Tasks.Task<object> P05_H_Hot()
+        {
+            var c = await _csharpScanner.ScanDeltaAsync(_context);
+            return c;
+        }
+
+        [Benchmark]
+        public async System.Threading.Tasks.Task<object> P05_X_Changed()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                var path = Path.Combine(_tempDir, "Assets", $"DummyScript_{i}.cs");
+                File.SetLastWriteTimeUtc(path, DateTime.UtcNow);
+                File.AppendAllText(path, "\n// Modified\n");
+            }
+            
+            var c = await _csharpScanner.ScanDeltaAsync(_context);
+            return c;
+        }
+
+        [Benchmark]
+        public async System.Threading.Tasks.Task<object> P05_V_Invalidated()
+        {
+            using var sha256 = System.Security.Cryptography.SHA256.Create();
+            var hashBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(_tempDir));
+            var hash = BitConverter.ToUInt64(hashBytes, 0);
+            var cacheFile = Path.Combine(Path.GetTempPath(), $"upa_bin_cache_{hash:x16}.bin");
+            
+            if (File.Exists(cacheFile))
+            {
+                using var fs = new FileStream(cacheFile, FileMode.Open, FileAccess.Write);
+                fs.Seek(8, SeekOrigin.Begin);
+                using var writer = new BinaryWriter(fs);
+                writer.Write(9999);
+            }
+
+            var c = await _csharpScanner.ScanDeltaAsync(_context);
             return c;
         }
     }
