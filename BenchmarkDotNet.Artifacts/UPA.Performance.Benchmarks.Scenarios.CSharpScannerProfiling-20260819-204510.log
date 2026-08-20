@@ -1,4 +1,0 @@
-// Validating benchmarks:
-// Benchmark CSharpScannerProfiling.ProfileCurrentScanner: Job-FGEKWY(IterationCount=3, LaunchCount=1, WarmupCount=1)
-//    * BenchmarkDotNet requires dotnet SDK to be installed or path to local dotnet cli provided in explicit way using `--cli` argument, benchmark 'CSharpScannerProfiling.ProfileCurrentScanner: Job-FGEKWY(IterationCount=3, LaunchCount=1, WarmupCount=1)' will not be executed
-
