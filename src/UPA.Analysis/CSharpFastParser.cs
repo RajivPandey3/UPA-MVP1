@@ -11,6 +11,17 @@ namespace UPA.Analysis
 {
     public static class CSharpFastParser
     {
+        // PATCH-001B.1R
+        // Shared lexical state for structural scanning.
+        private enum LexicalState
+        {
+            Normal,
+            String,
+            Char,
+            LineComment,
+            BlockComment
+        }
+
         private static readonly Regex RequireRegex = new(@"RequireComponent\s*\(\s*typeof\s*\(\s*(?<name>[A-Za-z_][\w.]*)\s*\)\s*\)", RegexOptions.Compiled);
         
         private static readonly string[] LifecycleMethods = { "Awake", "OnEnable", "Start", "Update", "FixedUpdate", "LateUpdate", "OnDisable", "OnDestroy", "OnTriggerEnter", "OnCollisionEnter" };
