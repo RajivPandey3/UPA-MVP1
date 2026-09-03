@@ -193,7 +193,7 @@ namespace UPA.MVP3.TrustEmission.Tests
             var task2 = emitter.EmitAsync(req2);
             
             // Wait for both to complete or throw
-            Exception ex = null;
+            Exception? ex = null;
             try { await Task.WhenAll(task1, task2); } catch (Exception e) { ex = e; }
             
             // Assert

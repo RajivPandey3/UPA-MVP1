@@ -11,10 +11,10 @@ namespace UPA.MVP3.TrustEmission
     // The durable record structure for Model A
     public class ProcessedRunRecord
     {
-        public string RunId { get; set; }
-        public string ArtifactHash { get; set; }
-        public string RegistryFingerprint { get; set; }
-        public CertificateChainEntry Entry { get; set; }
+        public required string RunId { get; set; }
+        public required string ArtifactHash { get; set; }
+        public required string RegistryFingerprint { get; set; }
+        public required CertificateChainEntry Entry { get; set; }
     }
 
     public class DurableState
@@ -48,8 +48,10 @@ namespace UPA.MVP3.TrustEmission
             File.WriteAllText(_stateFilePath, json);
         }
 
-        public async Task<CertificateChainEntry> EmitAsync(TrustEmissionRequest request)
+        public Task<CertificateChainEntry> EmitAsync(TrustEmissionRequest request)
         {
+            try
+            {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             // 1. Evidence Encoding
@@ -109,7 +111,7 @@ namespace UPA.MVP3.TrustEmission
                         _mvp2Registry.Register(record.Entry);
                     }
 
-                    return record.Entry;
+                    return Task.FromResult(record.Entry);
                 }
 
                 // T07 Healing: Check if MVP-2 has it (from previous crash)
@@ -128,7 +130,7 @@ namespace UPA.MVP3.TrustEmission
                         };
                         state.ProcessedBundles[request.ArtifactBundleId] = request.RunId;
                         SaveState(state);
-                        return existingMvp2Entry;
+                        return Task.FromResult(existingMvp2Entry);
                     }
                     else
                     {
@@ -174,10 +176,15 @@ namespace UPA.MVP3.TrustEmission
                 state.ProcessedBundles[request.ArtifactBundleId] = request.RunId;
                 SaveState(state);
 
-                return entry;
+                return Task.FromResult(entry);
             }
         }
+        catch (Exception ex)
+        {
+            return Task.FromException<CertificateChainEntry>(ex);
+        }
     }
+}
 
     public class IdempotencyConflictException : Exception
     {
