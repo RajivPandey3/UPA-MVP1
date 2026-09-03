@@ -24,7 +24,7 @@ V1.0 baseline: d685ad8
 
 ## Proposed JSON Schema
 
-`json
+```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "UPA Trust Contract",
@@ -49,8 +49,8 @@ V1.0 baseline: d685ad8
         "registry_certificate_id": { "type": "string" },
         "registry_certificate_hash": { "type": "string" },
         "registry_certificate_fingerprint": { "type": "string" },
-        "previous_registry_certificate_id": { "type": "string", "nullable": true },
-        "previous_registry_certificate_hash": { "type": "string", "nullable": true },
+        "previous_registry_certificate_id": { "type": ["string", "null"] },
+        "previous_registry_certificate_hash": { "type": ["string", "null"] },
         "certified_utc": { "type": "string", "format": "date-time" }
       },
       "required": [
@@ -73,7 +73,7 @@ V1.0 baseline: d685ad8
 
 ## Request Example (emit_trust)
 
-`json
+```json
 {
   "run_id": "run-a1b2",
   "artifact_bundle_id": "bundle-v1",
@@ -84,7 +84,7 @@ V1.0 baseline: d685ad8
 
 ## Success Response Example
 
-`json
+```json
 {
   "entry_id": "entry-987",
   "bundle_id": "bundle-v1",
@@ -101,19 +101,33 @@ V1.0 baseline: d685ad8
 
 ## Failure Response Example
 
-`json
+```json
 {
-  "error": {
-    "code": "IDEMPOTENCY_CONFLICT",
-    "message": "Run ID does not match previous run for this bundle."
-  }
+  "code": "IDEMPOTENCY_CONFLICT",
+  "message": "Conflicting payload for existing RunId"
 }
-`
+```
+
+## Error Response Notes
+- Emission conflicts are proposed to use stable language-neutral codes: `IDEMPOTENCY_CONFLICT` and `BUNDLE_COLLISION`.
+- These proposed codes map to the V1.0 `IdempotencyConflictException` and `BundleCollisionException` behaviors.
+- REST emission conflicts are proposed as HTTP 409 Conflict; this remains subject to architect approval.
+- The REST error response is a direct object containing required `code` and `message`, with optional transport-level `request_id`.
+- Verification responses use `valid` and `errors`; verification errors remain strings matching the current API boundary.
+
+## Additional Properties Policy
+- TrustEmissionRequest and CertificateChainEntry use additionalProperties: false.
+- Unknown properties are rejected for these core contract objects.
 
 ## Versioning Proposal
 - REST endpoints will use /v1/trust/...
 - V1.1 capabilities (like status checks) will not modify core trust fields. Any new fields specific to the transport layer (REST/MCP) will be kept outside the core TrustEmissionRequest/CertificateChainEntry objects, possibly wrapping them in envelopes if needed, or preserving direct mapping for simplicity.
 
+## Breaking-Change Policy
+- Breaking changes to the external /v1 contract require a new major external API version.
+- Backward-compatible additive changes may remain within the existing external version, subject to contract review and approval.
+- External API versioning remains independent from the internal V1.0 core implementation.
+
 ## Open Questions
-1. Should inalized_audit_snapshot be parsed as a nested JSON object in the REST layer, or kept as an opaque string as in the V1.0 .NET contract? (Proposed: Keep as string for exact hash parity).
+1. Should finalized_audit_snapshot be parsed as a nested JSON object in the REST layer, or kept as an opaque string as in the V1.0 .NET contract? (Proposed: Keep as string for exact hash parity).
 2. For error models, V1.0 has IdempotencyConflictException and BundleCollisionException. We should map these to standard HTTP 409 Conflict with specific string codes. Is this acceptable?

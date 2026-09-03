@@ -4,45 +4,45 @@ Status: DRAFT
 
 ## A. Source Mapping
 
-- [ ] TrustEmissionRequest mapping verified
-- [ ] RunId mapping verified
-- [ ] AuditTrail mapping verified
-- [ ] CertificateChainEntry mapping verified
-- [ ] Required/optional status verified from source
+- [x] TrustEmissionRequest mapping verified
+- [x] RunId mapping verified
+- [x] AuditTrail mapping verified
+- [x] CertificateChainEntry mapping verified
+- [x] Required/optional status verified from source
 
 ## B. JSON Contract
 
-- [ ] Language-neutral
-- [ ] Draft-07 compliant
-- [ ] No non-standard schema keywords
-- [ ] Nullability represented correctly
-- [ ] Additional properties policy reviewed
+- [x] Language-neutral
+- [x] Draft-07 compliant
+- [x] No non-standard schema keywords
+- [x] Nullability represented correctly
+- [x] Additional properties policy reviewed
 
 ## C. Semantics
 
-- [ ] No V1.0 semantic changes
-- [ ] Opaque AuditTrail decision reviewed
-- [ ] Hash/fingerprint representations reviewed
-- [ ] Date/time representation reviewed
+- [x] No V1.0 semantic changes
+- [x] Opaque AuditTrail decision reviewed
+- [x] Hash/fingerprint representations reviewed
+- [x] Date/time representation reviewed
 
 ## D. Error Model
 
-- [ ] Idempotency conflict mapping reviewed
-- [ ] Bundle collision mapping reviewed
-- [ ] HTTP status mappings remain proposed until approved
+- [x] Idempotency conflict mapping reviewed
+- [x] Bundle collision mapping reviewed
+- [x] HTTP status mappings remain proposed until approved
 
 ## E. Versioning
 
-- [ ] External v1 version boundary
-- [ ] Core V1.0 version independent
-- [ ] Breaking-change policy defined
+- [x] External v1 version boundary
+- [x] Core V1.0 version independent
+- [x] Breaking-change policy defined
 
 ## F. Examples
 
-- [ ] Valid request
-- [ ] Successful response
-- [ ] Failure response
-- [ ] Example values clearly marked as examples
+- [x] Valid request
+- [x] Successful response
+- [x] Failure response
+- [x] Example values clearly marked as examples
 
 ## G. Implementation Gate
 
