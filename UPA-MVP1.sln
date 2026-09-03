@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.Performance.Benchmarks"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.TrustLayer.Api", "src\UPA.TrustLayer.Api\UPA.TrustLayer.Api.csproj", "{35ED22BA-47E0-4FC2-9A90-1047965A672E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPA.TrustLayer.Api.Tests", "tests\UPA.TrustLayer.Api.Tests\UPA.TrustLayer.Api.Tests.csproj", "{BD10834E-78C6-4262-B7DB-6947C4077E60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -168,6 +170,10 @@ Global
 		{35ED22BA-47E0-4FC2-9A90-1047965A672E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35ED22BA-47E0-4FC2-9A90-1047965A672E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35ED22BA-47E0-4FC2-9A90-1047965A672E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD10834E-78C6-4262-B7DB-6947C4077E60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD10834E-78C6-4262-B7DB-6947C4077E60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD10834E-78C6-4262-B7DB-6947C4077E60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD10834E-78C6-4262-B7DB-6947C4077E60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,5 +183,6 @@ Global
 		{EBA9702A-53CA-4BB7-9589-AD0482BC5144} = {76C3759C-74A7-42EC-B499-46B89D2A0F12}
 		{59C17FFC-2C67-4C13-868B-557FF619C7BA} = {76C3759C-74A7-42EC-B499-46B89D2A0F12}
 		{35ED22BA-47E0-4FC2-9A90-1047965A672E} = {D63D69AE-0A60-444A-96A1-FAB12B80F5A0}
+		{BD10834E-78C6-4262-B7DB-6947C4077E60} = {76C3759C-74A7-42EC-B499-46B89D2A0F12}
 	EndGlobalSection
 EndGlobal

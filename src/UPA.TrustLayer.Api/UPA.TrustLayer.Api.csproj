@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UPA.MVP3.TrustEmission\UPA.MVP3.TrustEmission.csproj" />
+    <ProjectReference Include="..\..\..\..\UPA-MVP2\artifacts\v20.0-final\src\UPA.VerificationTrustAnchor\UPA.VerificationTrustAnchor.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
