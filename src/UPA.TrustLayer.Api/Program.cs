@@ -1,4 +1,4 @@
-﻿using UPA.TrustLayer.Api.Services;
+using UPA.TrustLayer.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,8 @@ builder.Services.AddSingleton(
 builder.Services.AddSingleton<ITrustEmissionAdapter>(
     sp => new TrustEmissionAdapter(
         sp.GetRequiredService<UPA.MVP3.TrustEmission.TrustEmitter>()));
+
+builder.Services.AddSingleton<ITrustVerificationAdapter, NotImplementedTrustVerificationAdapter>();
 
 var app = builder.Build();
 

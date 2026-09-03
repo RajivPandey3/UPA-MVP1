@@ -8,11 +8,15 @@ namespace UPA.TrustLayer.Api.Controllers;
 [Route("v1/trust")]
 public sealed class TrustController : ControllerBase
 {
-    private readonly ITrustEmissionAdapter _adapter;
+    private readonly ITrustEmissionAdapter _emitAdapter;
+    private readonly ITrustVerificationAdapter _verifyAdapter;
 
-    public TrustController(ITrustEmissionAdapter adapter)
+    public TrustController(
+        ITrustEmissionAdapter emitAdapter,
+        ITrustVerificationAdapter verifyAdapter)
     {
-        _adapter = adapter;
+        _emitAdapter = emitAdapter;
+        _verifyAdapter = verifyAdapter;
     }
 
     [HttpPost("emit")]
@@ -25,7 +29,7 @@ public sealed class TrustController : ControllerBase
     {
         try
         {
-            var result = await _adapter.EmitAsync(
+            var result = await _emitAdapter.EmitAsync(
                 request,
                 cancellationToken);
 
@@ -58,16 +62,31 @@ public sealed class TrustController : ControllerBase
     }
 
     [HttpPost("verify")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status501NotImplemented)]
-    public IActionResult Verify()
+    public async Task<IActionResult> Verify(
+        [FromBody] TrustVerifyRequest request,
+        CancellationToken cancellationToken)
     {
-        return StatusCode(
-            StatusCodes.Status501NotImplemented,
-            new TrustErrorResponse
-            {
-                Code = "TRUST_VERIFY_NOT_IMPLEMENTED",
-                Message = "Verification adapter is not implemented yet."
-            });
+        try
+        {
+            var result = await _verifyAdapter.VerifyAsync(
+                request,
+                cancellationToken);
+
+            return Ok(result);
+        }
+        catch (NotImplementedException ex)
+        {
+            return StatusCode(
+                StatusCodes.Status501NotImplemented,
+                new TrustErrorResponse
+                {
+                    Code = "TRUST_VERIFY_NOT_IMPLEMENTED",
+                    Message = ex.Message
+                });
+        }
     }
 
     [HttpGet("{id}")]
