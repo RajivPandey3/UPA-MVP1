@@ -58,7 +58,7 @@ public sealed class TrustController : ControllerBase
         {
             return Conflict(new TrustErrorResponse
             {
-                Code = ex.GetType().Name,
+                Code = ex.GetType().Name == "IdempotencyConflictException" ? "IDEMPOTENCY_CONFLICT" : "BUNDLE_COLLISION",
                 Message = ex.Message
             });
         }
