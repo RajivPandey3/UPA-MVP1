@@ -1,7 +1,7 @@
-﻿# UPA Trust Contract v1.1
+# UPA Trust Contract v1.1
 
 ## Status
-DRAFT — PENDING APPROVAL
+APPROVED — CONTRACT FROZEN
 
 ## Source of Truth
 This contract must be derived from the actual V1.0 implementation
@@ -108,13 +108,14 @@ V1.0 baseline: d685ad8
 }
 ```
 
-## Error Response Notes
-- Emission conflicts are proposed to use stable language-neutral codes: `IDEMPOTENCY_CONFLICT` and `BUNDLE_COLLISION`.
-- These proposed codes map to the V1.0 `IdempotencyConflictException` and `BundleCollisionException` behaviors.
-- REST emission conflicts are proposed as HTTP 409 Conflict; this remains subject to architect approval.
-- The REST error response is a direct object containing required `code` and `message`, with optional transport-level `request_id`.
-- Verification responses use `valid` and `errors`; verification errors remain strings matching the current API boundary.
 
+## Approved Error Response Model
+
+* Emission conflicts use stable language-neutral codes: IDEMPOTENCY_CONFLICT and BUNDLE_COLLISION.
+* These codes map to the V1.0 IdempotencyConflictException and BundleCollisionException behaviors.
+* REST emission conflicts map to HTTP 409 Conflict.
+* The REST error response is a direct object containing required code and message, with optional transport-level request_id.
+* Verification responses use valid and errors; verification errors remain strings matching the current API boundary.
 ## Additional Properties Policy
 - TrustEmissionRequest and CertificateChainEntry use additionalProperties: false.
 - Unknown properties are rejected for these core contract objects.
@@ -128,6 +129,7 @@ V1.0 baseline: d685ad8
 - Backward-compatible additive changes may remain within the existing external version, subject to contract review and approval.
 - External API versioning remains independent from the internal V1.0 core implementation.
 
-## Open Questions
-1. Should finalized_audit_snapshot be parsed as a nested JSON object in the REST layer, or kept as an opaque string as in the V1.0 .NET contract? (Proposed: Keep as string for exact hash parity).
-2. For error models, V1.0 has IdempotencyConflictException and BundleCollisionException. We should map these to standard HTTP 409 Conflict with specific string codes. Is this acceptable?
+## Approved Decisions
+1. finalized_audit_snapshot remains an opaque string for exact hash parity with the V1.0 .NET contract.
+2. V1.0 IdempotencyConflictException maps to IDEMPOTENCY_CONFLICT and HTTP 409 Conflict.
+3. V1.0 BundleCollisionException maps to BUNDLE_COLLISION and HTTP 409 Conflict.
