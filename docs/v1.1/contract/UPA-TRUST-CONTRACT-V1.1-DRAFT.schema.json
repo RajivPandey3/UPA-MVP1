@@ -1,0 +1,42 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UPA Trust Contract v1.1",
+  "type": "object",
+  "definitions": {
+    "TrustEmissionRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "run_id": { "type": "string" },
+        "artifact_bundle_id": { "type": "string" },
+        "artifact_hash": { "type": "string" },
+        "finalized_audit_snapshot": {
+          "type": "string",
+          "description": "Opaque serialized AuditTrail representation."
+        }
+      },
+      "required": ["run_id", "artifact_bundle_id", "artifact_hash", "finalized_audit_snapshot"]
+    },
+    "CertificateChainEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entry_id": { "type": "string" },
+        "bundle_id": { "type": "string" },
+        "bundle_fingerprint": { "type": "string" },
+        "sequence": { "type": "integer" },
+        "registry_certificate_id": { "type": "string" },
+        "registry_certificate_hash": { "type": "string" },
+        "registry_certificate_fingerprint": { "type": "string" },
+        "previous_registry_certificate_id": { "type": ["string", "null"] },
+        "previous_registry_certificate_hash": { "type": ["string", "null"] },
+        "certified_utc": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "entry_id", "bundle_id", "bundle_fingerprint", "sequence",
+        "registry_certificate_id", "registry_certificate_hash",
+        "registry_certificate_fingerprint", "certified_utc"
+      ]
+    }
+  }
+}
