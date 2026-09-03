@@ -48,6 +48,14 @@ public sealed class TrustVerifyHttpTests
                 request);
 
         Assert.Equal(HttpStatusCode.NotImplemented, response.StatusCode);
+
+        var body = await response.Content.ReadFromJsonAsync<
+            System.Collections.Generic.Dictionary<string, System.Text.Json.JsonElement>>();
+
+        Assert.NotNull(body);
+        Assert.True(body.ContainsKey("code"));
+        Assert.True(body.ContainsKey("message"));
+        Assert.Equal("TRUST_VERIFY_NOT_IMPLEMENTED", body["code"].GetString());
     }
 
     [Fact]
