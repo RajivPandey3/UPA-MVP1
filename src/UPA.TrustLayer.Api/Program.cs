@@ -11,7 +11,8 @@ builder.Services.AddSingleton<ITrustEmissionAdapter>(
     sp => new TrustEmissionAdapter(
         sp.GetRequiredService<UPA.MVP3.TrustEmission.TrustEmitter>()));
 
-builder.Services.AddSingleton<ITrustVerificationAdapter, NotImplementedTrustVerificationAdapter>();
+builder.Services.AddSingleton<ITrustVerificationService, TrustVerificationService>();
+builder.Services.AddSingleton<ITrustVerificationAdapter, TrustVerificationAdapter>();
 builder.Services.AddSingleton<ITrustInspectionAdapter, NotImplementedTrustInspectionAdapter>();
 
 var app = builder.Build();

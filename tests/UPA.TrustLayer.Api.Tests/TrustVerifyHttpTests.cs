@@ -18,7 +18,7 @@ public sealed class TrustVerifyHttpTests
     }
 
     [Fact]
-    public async Task Verify_ReturnsNotImplementedForValidRequest()
+    public async Task Verify_ReturnsSuccessForValidRequest()
     {
         var request = new
         {
@@ -30,13 +30,13 @@ public sealed class TrustVerifyHttpTests
                 {
                     entry_id = "entry-test",
                     bundle_id = "http-bundle-test",
-                    bundle_fingerprint = "fingerprint-test",
+                    bundle_fingerprint = "http-hash-test",
                     sequence = 1,
                     registry_certificate_id = "registry-cert-test",
                     registry_certificate_hash = "registry-hash-test",
                     registry_certificate_fingerprint = "registry-fingerprint-test",
-                    previous_registry_certificate_id = (string?)null,
-                    previous_registry_certificate_hash = (string?)null,
+                    previous_registry_certificate_id = "",
+                    previous_registry_certificate_hash = "",
                     certified_utc = "2026-01-01T00:00:00Z"
                 }
             }
@@ -47,15 +47,17 @@ public sealed class TrustVerifyHttpTests
                 "/v1/trust/verify",
                 request);
 
-        Assert.Equal(HttpStatusCode.NotImplemented, response.StatusCode);
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var body = await response.Content.ReadFromJsonAsync<
             System.Collections.Generic.Dictionary<string, System.Text.Json.JsonElement>>();
 
         Assert.NotNull(body);
-        Assert.True(body.ContainsKey("code"));
-        Assert.True(body.ContainsKey("message"));
-        Assert.Equal("TRUST_VERIFY_NOT_IMPLEMENTED", body["code"].GetString());
+        Assert.True(body.ContainsKey("valid"));
+        Assert.True(body.ContainsKey("errors"));
+
+        Assert.True(body["valid"].GetBoolean());
+        Assert.Empty(body["errors"].EnumerateArray());
     }
 
     [Fact]
