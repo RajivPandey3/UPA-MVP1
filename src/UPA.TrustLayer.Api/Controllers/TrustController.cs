@@ -10,13 +10,16 @@ public sealed class TrustController : ControllerBase
 {
     private readonly ITrustEmissionAdapter _emitAdapter;
     private readonly ITrustVerificationAdapter _verifyAdapter;
+    private readonly ITrustInspectionAdapter _inspectAdapter;
 
     public TrustController(
         ITrustEmissionAdapter emitAdapter,
-        ITrustVerificationAdapter verifyAdapter)
+        ITrustVerificationAdapter verifyAdapter,
+        ITrustInspectionAdapter inspectAdapter)
     {
         _emitAdapter = emitAdapter;
         _verifyAdapter = verifyAdapter;
+        _inspectAdapter = inspectAdapter;
     }
 
     [HttpPost("emit")]
@@ -90,15 +93,26 @@ public sealed class TrustController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status501NotImplemented)]
-    public IActionResult Inspect(string id)
+    public async Task<IActionResult> Inspect(
+        string id,
+        CancellationToken cancellationToken)
     {
-        return StatusCode(
-            StatusCodes.Status501NotImplemented,
-            new TrustErrorResponse
-            {
-                Code = "TRUST_INSPECT_NOT_IMPLEMENTED",
-                Message = "Inspection adapter is not implemented yet."
-            });
+        try
+        {
+            var result = await _inspectAdapter.InspectAsync(id, cancellationToken);
+            return Ok(result);
+        }
+        catch (NotImplementedException ex)
+        {
+            return StatusCode(
+                StatusCodes.Status501NotImplemented,
+                new TrustErrorResponse
+                {
+                    Code = "TRUST_INSPECT_NOT_IMPLEMENTED",
+                    Message = ex.Message
+                });
+        }
     }
 }
