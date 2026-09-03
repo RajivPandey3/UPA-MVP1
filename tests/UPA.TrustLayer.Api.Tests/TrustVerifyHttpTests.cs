@@ -77,4 +77,24 @@ public sealed class TrustVerifyHttpTests
             HttpStatusCode.BadRequest,
             response.StatusCode);
     }
+    [Fact]
+    public async Task Verify_RejectsUnknownBodyProperties()
+    {
+        var request = new
+        {
+            artifact_bundle_id = "http-bundle-invalid",
+            artifact_hash = "http-hash-invalid",
+            certificate_chain = Array.Empty<object>(),
+            unexpected_property = "must-be-rejected"
+        };
+
+        using var response =
+            await _client.PostAsJsonAsync(
+                "/v1/trust/verify",
+                request);
+
+        Assert.Equal(
+            HttpStatusCode.BadRequest,
+            response.StatusCode);
+    }
 }
