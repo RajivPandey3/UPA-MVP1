@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using UPA.TrustLayer.Api.Contracts;
@@ -53,10 +53,23 @@ public sealed class TrustEmitHttpTests
 
         var body =
             await response.Content.ReadFromJsonAsync<
-                Dictionary<string, object>>();
+                Dictionary<string, System.Text.Json.JsonElement>>();
 
         Assert.NotNull(body);
         Assert.NotEmpty(body!);
+
+        Assert.True(body.ContainsKey("entry_id"));
+        Assert.True(body.ContainsKey("bundle_id"));
+        Assert.True(body.ContainsKey("bundle_fingerprint"));
+        Assert.True(body.ContainsKey("sequence"));
+        Assert.True(body.ContainsKey("registry_certificate_id"));
+        Assert.True(body.ContainsKey("registry_certificate_hash"));
+        Assert.True(body.ContainsKey("registry_certificate_fingerprint"));
+        Assert.True(body.ContainsKey("previous_registry_certificate_id"));
+        Assert.True(body.ContainsKey("previous_registry_certificate_hash"));
+        Assert.True(body.ContainsKey("certified_utc"));
+
+        Assert.Equal("http-bundle-test", body["bundle_id"].GetString());
     }
 
     [Fact]

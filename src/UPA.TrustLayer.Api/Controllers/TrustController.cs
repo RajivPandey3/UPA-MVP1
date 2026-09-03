@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using UPA.TrustLayer.Api.Contracts;
 using UPA.TrustLayer.Api.Services;
 
@@ -29,7 +29,21 @@ public sealed class TrustController : ControllerBase
                 request,
                 cancellationToken);
 
-            return Ok(result);
+            var mappedDto = new CertificateChainEntry
+            {
+                EntryId = result.EntryId,
+                BundleId = result.BundleId,
+                BundleFingerprint = result.BundleFingerprint,
+                Sequence = result.Sequence,
+                RegistryCertificateId = result.RegistryCertificateId,
+                RegistryCertificateHash = result.RegistryCertificateHash,
+                RegistryCertificateFingerprint = result.RegistryCertificateFingerprint,
+                PreviousRegistryCertificateId = result.PreviousRegistryCertificateId,
+                PreviousRegistryCertificateHash = result.PreviousRegistryCertificateHash,
+                CertifiedUtc = result.CertifiedUtc
+            };
+
+            return Ok(mappedDto);
         }
         catch (Exception ex) when (
             ex.GetType().Name == "IdempotencyConflictException" ||

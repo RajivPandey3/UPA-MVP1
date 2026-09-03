@@ -1,4 +1,4 @@
-﻿using UPA.MVP3.TrustEmission;
+using UPA.MVP3.TrustEmission;
 using UPA.TrustLayer.Api.Contracts;
 
 namespace UPA.TrustLayer.Api.Services;
@@ -12,7 +12,7 @@ public sealed class TrustEmissionAdapter : ITrustEmissionAdapter
         _trustEmitter = trustEmitter;
     }
 
-    public async Task<object> EmitAsync(
+    public async Task<UPA.VerificationTrustAnchor.CertificateChainEntry> EmitAsync(
         TrustEmitRequest request,
         CancellationToken cancellationToken)
     {

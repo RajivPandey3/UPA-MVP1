@@ -1,4 +1,4 @@
-﻿using UPA.TrustLayer.Api.Contracts;
+using UPA.TrustLayer.Api.Contracts;
 
 namespace UPA.TrustLayer.Api.Services;
 
@@ -8,7 +8,7 @@ namespace UPA.TrustLayer.Api.Services;
 /// </summary>
 public interface ITrustEmissionAdapter
 {
-    Task<object> EmitAsync(
+    Task<UPA.VerificationTrustAnchor.CertificateChainEntry> EmitAsync(
         TrustEmitRequest request,
         CancellationToken cancellationToken);
 }
