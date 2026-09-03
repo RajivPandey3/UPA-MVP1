@@ -1,0 +1,71 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using UPA.TrustLayer.Api.Contracts;
+using UPA.TrustLayer.Api.Services;
+
+namespace UPA.TrustLayer.Api.Controllers;
+
+[ApiController]
+[Route("v1/trust")]
+public sealed class TrustController : ControllerBase
+{
+    private readonly ITrustEmissionAdapter _adapter;
+
+    public TrustController(ITrustEmissionAdapter adapter)
+    {
+        _adapter = adapter;
+    }
+
+    [HttpPost("emit")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> Emit(
+        [FromBody] TrustEmitRequest request,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var result = await _adapter.EmitAsync(
+                request,
+                cancellationToken);
+
+            return Ok(result);
+        }
+        catch (Exception ex) when (
+            ex.GetType().Name == "IdempotencyConflictException" ||
+            ex.GetType().Name == "BundleCollisionException")
+        {
+            return Conflict(new TrustErrorResponse
+            {
+                Code = ex.GetType().Name,
+                Message = ex.Message
+            });
+        }
+    }
+
+    [HttpPost("verify")]
+    [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+    public IActionResult Verify()
+    {
+        return StatusCode(
+            StatusCodes.Status501NotImplemented,
+            new TrustErrorResponse
+            {
+                Code = "TRUST_VERIFY_NOT_IMPLEMENTED",
+                Message = "Verification adapter is not implemented yet."
+            });
+    }
+
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+    public IActionResult Inspect(string id)
+    {
+        return StatusCode(
+            StatusCodes.Status501NotImplemented,
+            new TrustErrorResponse
+            {
+                Code = "TRUST_INSPECT_NOT_IMPLEMENTED",
+                Message = "Inspection adapter is not implemented yet."
+            });
+    }
+}
