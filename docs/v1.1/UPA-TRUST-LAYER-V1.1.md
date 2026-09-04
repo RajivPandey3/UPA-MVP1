@@ -32,6 +32,8 @@ The V1.0 trust core must not be rewritten or duplicated.
 
 ## Phase 2 - REST API
 
+Status: IMPLEMENTED - INSPECTION DEFERRED.
+
 ### emit_trust
 
 Implemented and wired to the frozen V1.0 TrustEmitter.
