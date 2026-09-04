@@ -89,4 +89,94 @@ public sealed class TrustEmitHttpTests
             HttpStatusCode.BadRequest,
             response.StatusCode);
     }
+
+    [Fact]
+    public async Task Emit_ReturnsIdempotencyConflictCodeForConflictingRunId()
+    {
+        var firstRequest = new
+        {
+            run_id = "http-idempotency-run",
+            artifact_bundle_id = "http-idempotency-bundle",
+            artifact_hash = "http-idempotency-hash",
+            finalized_audit_snapshot = "http-idempotency-snapshot",
+            certificate_chain = Array.Empty<object>()
+        };
+
+        using var firstResponse =
+            await _client.PostAsJsonAsync(
+                "/v1/trust/emit",
+                firstRequest);
+
+        Assert.Equal(HttpStatusCode.OK, firstResponse.StatusCode);
+
+        var conflictingRequest = new
+        {
+            run_id = "http-idempotency-run",
+            artifact_bundle_id = "http-idempotency-bundle",
+            artifact_hash = "different-artifact-hash",
+            finalized_audit_snapshot = "http-idempotency-snapshot",
+            certificate_chain = Array.Empty<object>()
+        };
+
+        using var response =
+            await _client.PostAsJsonAsync(
+                "/v1/trust/emit",
+                conflictingRequest);
+
+        Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
+
+        var body =
+            await response.Content.ReadFromJsonAsync<
+                Dictionary<string, System.Text.Json.JsonElement>>();
+
+        Assert.NotNull(body);
+        Assert.Equal(
+            "IDEMPOTENCY_CONFLICT",
+            body!["code"].GetString());
+    }
+
+    [Fact]
+    public async Task Emit_ReturnsBundleCollisionCodeForConflictingBundle()
+    {
+        var firstRequest = new
+        {
+            run_id = "http-collision-run-1",
+            artifact_bundle_id = "http-collision-bundle",
+            artifact_hash = "http-collision-hash-1",
+            finalized_audit_snapshot = "http-collision-snapshot-1",
+            certificate_chain = Array.Empty<object>()
+        };
+
+        using var firstResponse =
+            await _client.PostAsJsonAsync(
+                "/v1/trust/emit",
+                firstRequest);
+
+        Assert.Equal(HttpStatusCode.OK, firstResponse.StatusCode);
+
+        var conflictingRequest = new
+        {
+            run_id = "http-collision-run-2",
+            artifact_bundle_id = "http-collision-bundle",
+            artifact_hash = "http-collision-hash-2",
+            finalized_audit_snapshot = "http-collision-snapshot-2",
+            certificate_chain = Array.Empty<object>()
+        };
+
+        using var response =
+            await _client.PostAsJsonAsync(
+                "/v1/trust/emit",
+                conflictingRequest);
+
+        Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
+
+        var body =
+            await response.Content.ReadFromJsonAsync<
+                Dictionary<string, System.Text.Json.JsonElement>>();
+
+        Assert.NotNull(body);
+        Assert.Equal(
+            "BUNDLE_COLLISION",
+            body!["code"].GetString());
+    }
 }
