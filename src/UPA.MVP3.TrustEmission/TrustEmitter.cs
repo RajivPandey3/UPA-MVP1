@@ -45,7 +45,20 @@ namespace UPA.MVP3.TrustEmission
         private void SaveState(DurableState state)
         {
             string json = JsonSerializer.Serialize(state, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(_stateFilePath, json);
+            string tempPath = _stateFilePath + "." + Guid.NewGuid().ToString("N") + ".tmp";
+            try
+            {
+                File.WriteAllText(tempPath, json);
+                File.Move(tempPath, _stateFilePath, true);
+            }
+            catch
+            {
+                if (File.Exists(tempPath))
+                {
+                    try { File.Delete(tempPath); } catch { }
+                }
+                throw;
+            }
         }
 
         public Task<CertificateChainEntry> EmitAsync(TrustEmissionRequest request)
