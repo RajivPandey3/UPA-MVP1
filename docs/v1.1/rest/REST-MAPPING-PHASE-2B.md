@@ -53,3 +53,8 @@ The V1.0 exception classes themselves remain unchanged.
 ## Freeze rule
 
 Do not modify the V1.0 TrustEmission implementation.
+
+## Inspection Implementation Status
+
+The V1.1 inspect_trust operation remains 501 Not Implemented because the frozen Phase 2B mapping requires inspection behavior to be backed by an existing V1.0 capability. The current V1.0 TrustEmitter exposes emission and durable state internally, but no public lookup/inspection capability. Therefore, no new V1.0 persistence or lookup semantics are introduced by Phase 2O. Inspection remains explicitly deferred until an approved V1.0-backed read capability exists.
+
