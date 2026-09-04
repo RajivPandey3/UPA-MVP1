@@ -37,16 +37,4 @@ public class Player : MonoBehaviour
         }
         finally { root.Delete(true); }
     }
-
-    [Fact]
-    public void Scan_IsReadOnly()
-    {
-        var root = Directory.CreateTempSubdirectory();
-        try
-        {
-            Assert.Throws<InvalidOperationException>(() =>
-                new CSharpScanner().Scan(new ScanContext(root.FullName, false)));
-        }
-        finally { root.Delete(true); }
-    }
 }

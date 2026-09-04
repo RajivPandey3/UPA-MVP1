@@ -29,7 +29,7 @@ def main():
 
     failures = []
 
-    if manifest["release"] != "1.8.0-rc1":
+    if manifest["release"] != "1.8-final":
         failures.append("Release version mismatch.")
 
     governance = manifest["governance"]
