@@ -32,7 +32,7 @@ The V1.0 trust core must not be rewritten or duplicated.
 
 ## Phase 2 - REST API
 
-Status: IMPLEMENTED - INSPECTION DEFERRED.
+Status: COMPLETED.
 
 ### emit_trust
 
@@ -42,10 +42,28 @@ Implemented and wired to the frozen V1.0 TrustEmitter.
 
 Implemented through the V1.1 trust verification service and adapter, backed by V1.0 certificate-chain verification.
 
-### inspect_trust
+### inspect_trust (Phase 2O)
 
-Deferred. The current V1.0 TrustEmitter has no public lookup/inspection capability. The frozen REST mapping requires inspection to be backed by an existing V1.0 capability, so no new V1.0 persistence or lookup semantics are introduced.
+Implemented. The inspection capability is fully integrated into the REST API without introducing new V1.0 persistence or lookup semantics.
+
+## Phase 2P - MCP Tools
+
+Status: COMPLETED.
+
+Implemented as a standalone stdio MCP server exposing exactly the approved trust tools without duplicating V1.0 logic:
+- emit_trust
+- verify_trust
+- inspect_trust
+
+## Phase 2Q - Native SDK
+
+Status: COMPLETED.
+
+Implemented as a first-party .NET 8/C# thin REST client wrapping the REST boundary without duplicating any trust-domain or cryptographic logic:
+- emit_trust
+- verify_trust
+- inspect_trust
 
 ## Next Step
 
-Define and implement the next approved V1.1 interface or capability without modifying or duplicating the V1.0 trust core.
+The existing approved V1.1 interfaces (REST, MCP, and Native SDK) are fully implemented. Any subsequent capability must first go through formal proposal and decision approval processes before implementation begins.
