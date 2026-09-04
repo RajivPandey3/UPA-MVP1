@@ -94,7 +94,7 @@ public sealed class TrustController : ControllerBase
 
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Inspect(
         string id,
         CancellationToken cancellationToken)
@@ -104,13 +104,12 @@ public sealed class TrustController : ControllerBase
             var result = await _inspectAdapter.InspectAsync(id, cancellationToken);
             return Ok(result);
         }
-        catch (NotImplementedException ex)
+        catch (TrustInspectionNotFoundException ex)
         {
-            return StatusCode(
-                StatusCodes.Status501NotImplemented,
+            return NotFound(
                 new TrustErrorResponse
                 {
-                    Code = "TRUST_INSPECT_NOT_IMPLEMENTED",
+                    Code = "TRUST_NOT_FOUND",
                     Message = ex.Message
                 });
         }

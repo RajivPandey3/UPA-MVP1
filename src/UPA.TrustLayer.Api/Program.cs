@@ -14,7 +14,8 @@ builder.Services.AddSingleton<ITrustEmissionAdapter>(
 
 builder.Services.AddSingleton<ITrustVerificationService, TrustVerificationService>();
 builder.Services.AddSingleton<ITrustVerificationAdapter, TrustVerificationAdapter>();
-builder.Services.AddSingleton<ITrustInspectionAdapter, NotImplementedTrustInspectionAdapter>();
+builder.Services.AddSingleton<ITrustInspectionService, TrustInspectionService>();
+builder.Services.AddSingleton<ITrustInspectionAdapter, TrustInspectionAdapter>();
 
 var app = builder.Build();
 
