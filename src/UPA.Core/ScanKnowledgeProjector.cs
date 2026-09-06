@@ -2,6 +2,18 @@ namespace UPA.Core;
 
 public static class ScanKnowledgeProjector
 {
+    public sealed record KnowledgeGraph(IReadOnlyList<ProjectKnowledgeNode> Nodes, IReadOnlyList<ProjectKnowledgeEdge> Edges);
+
+    public static KnowledgeGraph ProjectGraph(ScanResult scan)
+    {
+        var nodes = Project(scan);
+        var project = nodes[0];
+        var edges = nodes.Skip(1).Select(node => new ProjectKnowledgeEdge(
+            project.Id, node.Id, RelationshipKind.Contains, EvidenceStatus.Confirmed,
+            scan.CompletedAt, "scanner")).ToArray();
+        return new KnowledgeGraph(nodes, edges);
+    }
+
     public static IReadOnlyList<ProjectKnowledgeNode> Project(ScanResult scan)
     {
         ArgumentNullException.ThrowIfNull(scan);
