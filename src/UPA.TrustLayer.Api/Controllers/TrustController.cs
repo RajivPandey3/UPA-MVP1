@@ -54,7 +54,8 @@ public sealed class TrustController : ControllerBase
         }
         catch (Exception ex) when (
             ex.GetType().Name == "IdempotencyConflictException" ||
-            ex.GetType().Name == "BundleCollisionException")
+            ex.GetType().Name == "BundleCollisionException" ||
+            ex is IOException)
         {
             return Conflict(new TrustErrorResponse
             {
@@ -119,5 +120,6 @@ public sealed class TrustController : ControllerBase
         }
     }
 }
+
 
 
