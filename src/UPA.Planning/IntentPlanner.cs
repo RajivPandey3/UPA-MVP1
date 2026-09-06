@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+using UPA.Commands;
 using UPA.Health;
 using UPA.ProjectModel;
 
@@ -18,7 +18,41 @@ public sealed class IntentPlanner
         var inputs = new List<PlanInput>();
         var unknowns = new List<PlanUnknown>();
 
-        var lower = intent.ToLowerInvariant();
+        if (IntentGrammar.MentionsAny(intent, "file", "folder", "directory"))
+        {
+            actions.Add(Action("inspect-workspace", PlanActionKind.Inspect, "Workspace",
+                "Inspect the requested workspace target.", [], PlanRisk.Low, 0.95, false));
+            if (IntentGrammar.MentionsAny(intent, "create", "make", "add", "write"))
+                actions.Add(Action("create-file", PlanActionKind.Create, "Workspace/File",
+                    "Create the requested file after inspection.", ["inspect-workspace"], PlanRisk.Medium, 0.9, true));
+        }
+
+        if (UnityCommandParser.TryParse(intent, out var objectName))
+        {
+            actions.Add(Action("inspect-scene", PlanActionKind.Inspect, "Scene", "Inspect the target scene.", [], PlanRisk.Low, 1, false));
+            actions.Add(Action("inspect-components", PlanActionKind.Inspect, "Components", "Check supported component types.", [], PlanRisk.Low, 1, false));
+            actions.Add(Action("create-gameobject", PlanActionKind.Create, objectName, "Create GameObject " + objectName,
+                ["inspect-scene"], PlanRisk.Medium, 1, true));
+            actions.Add(Action("configure-components", PlanActionKind.Configure, objectName, "Add Rigidbody to " + objectName,
+                ["create-gameobject", "inspect-components"], PlanRisk.Medium, 1, true));
+            if (health != null && health.Findings.Any(finding => finding.Severity >= FindingSeverity.Error))
+                unknowns.Add(new PlanUnknown("health.blocked", "Health analysis has blocking findings.", true, "Resolve health findings."));
+            return new UpaPlan("plan-" + Guid.NewGuid().ToString("N"), intent.Trim(), inputs,
+                actions, unknowns, true, false, IntentGrammar.Version)
+            {
+                UnityCreation = new UnityCreationSpec(objectName, "Rigidbody")
+            };
+        }
+
+        if (IntentGrammar.RequiresConstraintClarification(intent))
+        {
+            return new UpaPlan(
+                "plan-" + Guid.NewGuid().ToString("N")[..12], intent.Trim(), inputs, actions,
+                new[] { new PlanUnknown("intent.constraint",
+                    "This request contains a restriction that the supported grammar cannot safely bind to a target.",
+                    true, "Clarify the allowed action and its exact target before generating a mutation plan.") },
+                true, false, IntentGrammar.Version);
+        }
 
         if (IntentGrammar.MentionsAny(intent, "scene", "hierarchy", "gameobject"))
         {

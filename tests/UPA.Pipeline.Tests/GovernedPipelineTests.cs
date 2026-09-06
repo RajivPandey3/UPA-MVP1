@@ -37,17 +37,17 @@ public class GovernedPipelineTests
     }
 
     [Fact]
-    public void SuccessfulRunStillDoesNotGrantPermanentExecutionAuthority()
+    public void CallerFlagsCannotProveExecution()
     {
         var result = new GovernedPipeline().Start(
             "run-3",
             "Create player",
             true, true, true, true, true, true, true);
 
-        Assert.True(result.Success);
-        Assert.Equal(PipelineStage.Completed, result.State.Stage);
+        Assert.False(result.Success);
+        Assert.Equal(PipelineStage.Blocked, result.State.Stage);
         Assert.False(result.State.ExecutionAuthorized);
-        Assert.Contains(
+        Assert.DoesNotContain(
             result.State.Events,
             x => x.Code == "PIPE-100");
     }

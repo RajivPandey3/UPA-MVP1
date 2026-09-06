@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace UPA.Planning;
 
 public static class IntentGrammar
@@ -24,5 +26,10 @@ public static class IntentGrammar
         };
 
     public static bool MentionsAny(string intent, params string[] terms)
-        => terms.Any(x => intent.Contains(x, StringComparison.OrdinalIgnoreCase));
+        => terms.Any(term => Regex.IsMatch(intent, @"\b" + Regex.Escape(term) + @"\b",
+            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant));
+
+    public static bool RequiresConstraintClarification(string intent)
+        => Regex.IsMatch(intent, @"\b(not|no|never|without|unless|except|avoid|only|don't|don’t|cannot|can't|can’t)\b",
+            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 }

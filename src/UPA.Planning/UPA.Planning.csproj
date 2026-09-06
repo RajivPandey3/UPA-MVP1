@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../UnityPackage/UPA.UnityExecutor/Editor/UPAUnityCommandParser.cs" Link="UnityCommandParser.cs" />
     <ProjectReference Include="../UPA.ProjectModel/UPA.ProjectModel.csproj" />
     <ProjectReference Include="../UPA.Health/UPA.Health.csproj" />
   </ItemGroup>

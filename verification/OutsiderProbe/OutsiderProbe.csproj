@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/UPA.Execution/UPA.Execution.csproj" />
+    <ProjectReference Include="../../src/UPA.Planning/UPA.Planning.csproj" />
+    <ProjectReference Include="../../src/UPA.Pipeline/UPA.Pipeline.csproj" />
+    <ProjectReference Include="../../src/UPA.Analysis/UPA.Analysis.csproj" />
+  </ItemGroup>
+</Project>
