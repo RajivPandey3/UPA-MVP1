@@ -21,7 +21,10 @@ public sealed record ApprovalToken(
     string PlanId,
     string ApprovedBy,
     DateTimeOffset IssuedAtUtc,
-    bool ExplicitlyApproved);
+    bool ExplicitlyApproved)
+{
+    public string? ContentHash { get; init; }
+}
 
 public sealed record ExecutionPrecondition(
     string Code,

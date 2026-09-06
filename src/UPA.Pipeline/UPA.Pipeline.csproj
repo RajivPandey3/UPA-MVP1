@@ -4,4 +4,10 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../UPA.Workflows/UPA.Workflows.csproj" />
+    <ProjectReference Include="../UPA.Analysis/UPA.Analysis.csproj" />
+    <ProjectReference Include="../UPA.Governance/UPA.Governance.csproj" />
+    <ProjectReference Include="../UPA.Execution/UPA.Execution.csproj" />
+  </ItemGroup>
 </Project>

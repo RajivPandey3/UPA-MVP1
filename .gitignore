@@ -1,6 +1,20 @@
-bin/
-obj/
+# Build and IDE output
+**/bin/
+**/obj/
 .vs/
-TestResults/
 *.user
 *.suo
+TestResults/
+
+# Local verification output (CI artifacts are uploaded separately)
+verification/ci-local-proof/
+verification/ci-evidence/
+verification/fix-evidence/
+verification/multiplatform-evidence/
+verification/cto-evidence/
+verification/outsider-results/
+verification/UnityOutsider/*-results.txt
+verification/UnityOutsider/pipeline-proof.json
+
+# Local scratch scripts
+reflect*.ps1

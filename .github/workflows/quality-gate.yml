@@ -1,0 +1,43 @@
+name: Quality Gate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+      - name: Restore, build, test and recovery proof
+        shell: pwsh
+        env:
+          UPA_PERF_PROFILE: small
+        run: ./verify-mvp1.ps1 -ResultsPath verification/ci-evidence
+      - name: Capture environment and evidence manifest
+        if: always()
+        shell: pwsh
+        run: |
+          $evidence = "verification/ci-evidence"
+          New-Item -ItemType Directory -Path $evidence -Force | Out-Null
+          @{ commit = "${{ github.sha }}"; runner = $env:RUNNER_NAME; os = $env:RUNNER_OS; dotnet = (& dotnet --version) } |
+            ConvertTo-Json | Set-Content "$evidence/environment.json"
+          Get-ChildItem $evidence -File -Recurse | Get-FileHash -Algorithm SHA256 |
+            ForEach-Object { "$($_.Hash)  $($_.Path)" } | Set-Content "$evidence/sha256-manifest.txt"
+      - name: Upload repeatable evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-evidence-${{ github.sha }}
+          path: verification/ci-evidence
+          if-no-files-found: error
+          retention-days: 30

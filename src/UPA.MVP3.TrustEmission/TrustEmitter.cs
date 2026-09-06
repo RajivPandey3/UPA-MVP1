@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,7 +27,7 @@ namespace UPA.MVP3.TrustEmission
     {
         private readonly string _stateFilePath;
         private readonly RegistryCertificateChain _mvp2Registry;
-        private readonly object _lock = new object();
+        private static readonly object _lock = new object();
 
         public TrustEmitter(string stateFilePath, RegistryCertificateChain mvp2Registry)
         {
@@ -209,3 +209,4 @@ namespace UPA.MVP3.TrustEmission
         public BundleCollisionException(string message) : base(message) { }
     }
 }
+

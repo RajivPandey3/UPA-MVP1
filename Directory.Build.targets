@@ -1,0 +1,8 @@
+<Project>
+  <ItemGroup>
+    <_ExternalTrustAnchorReference Include="@(ProjectReference->WithMetadataValue('Filename', 'UPA.VerificationTrustAnchor'))" />
+    <ProjectReference Remove="@(_ExternalTrustAnchorReference)" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)dependencies/UPA.VerificationTrustAnchor/UPA.VerificationTrustAnchor.csproj"
+      Condition="'@(_ExternalTrustAnchorReference)' != ''" />
+  </ItemGroup>
+</Project>

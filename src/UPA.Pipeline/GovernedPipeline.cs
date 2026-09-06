@@ -1,6 +1,6 @@
 namespace UPA.Pipeline;
 
-public sealed class GovernedPipeline
+public sealed partial class GovernedPipeline
 {
     private readonly List<PipelineEvent> _events = new();
 
@@ -20,6 +20,8 @@ public sealed class GovernedPipeline
 
         if (string.IsNullOrWhiteSpace(intent))
             throw new ArgumentException("Intent is required.", nameof(intent));
+
+        _events.Clear();
 
         Emit(PipelineStage.Intake, "PIPE-001", "Intent accepted.");
 
@@ -78,24 +80,8 @@ public sealed class GovernedPipeline
             return Block(runId, "PIPE-080",
                 "Executor reported failure; transaction policy should roll back.");
 
-        Emit(PipelineStage.Execute, "PIPE-081",
-            "Controlled execution completed.");
-
-        Emit(PipelineStage.Audit, "PIPE-090",
-            "Audit record finalized.");
-
-        Emit(PipelineStage.Completed, "PIPE-100",
-            "Governed pipeline completed.");
-
-        return new PipelineResult(
-            true,
-            State(
-                runId,
-                PipelineStage.Completed,
-                blocking: false,
-                approvalRequired: true,
-                executionAuthorized: false),
-            Array.Empty<string>());
+        return Block(runId, "PIPE-082",
+            "Caller status flags cannot prove execution. Use the executing pipeline with output verification.");
     }
 
     private PipelineResult Block(

@@ -4,6 +4,28 @@ namespace UPA.Planning.Tests;
 
 public class IntentPlannerTests
 {
+    [Theory]
+    [InlineData("Do not create a GameObject in the scene.")]
+    [InlineData("Don't add a Rigidbody component.")]
+    [InlineData("Create a GameObject but do not change the camera.")]
+    [InlineData("Never generate a texture.")]
+    [InlineData("Create a GameObject without changing the scene camera.")]
+    public void UnsupportedRestrictionsRequireClarificationWithoutMutation(string intent)
+    {
+        var plan = new IntentPlanner().BuildPlan(intent);
+        Assert.Contains(plan.Unknowns, unknown => unknown.Blocking);
+        Assert.DoesNotContain(plan.Actions, action => action.Kind is
+            PlanActionKind.Create or PlanActionKind.Configure or PlanActionKind.GeneratePlaceholder);
+        Assert.False(plan.Executable);
+    }
+
+    [Fact]
+    public void WordsInsideOtherWordsDoNotTriggerCommands()
+    {
+        var plan = new IntentPlanner().BuildPlan("Inspect the scene address.");
+        Assert.DoesNotContain(plan.Actions, action => action.Kind == PlanActionKind.Create);
+    }
+
     [Fact]
     public void PlannerCreatesInspectionBeforeMutation()
     {

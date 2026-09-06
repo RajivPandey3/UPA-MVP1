@@ -57,4 +57,9 @@ public sealed record UpaPlan(
     IReadOnlyList<PlanUnknown> Unknowns,
     bool RequiresApproval,
     bool Executable,
-    string GrammarVersion);
+    string GrammarVersion)
+{
+    public UnityCreationSpec? UnityCreation { get; init; }
+}
+
+public sealed record UnityCreationSpec(string ObjectName, string ComponentName);
