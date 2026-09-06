@@ -76,6 +76,15 @@ public sealed class RealProjectFixtureProofTests
         Assert.Equal(first.ProjectRoot, second.ProjectRoot);
     }
 
+    [Fact]
+    public void RealDotnetFixture_RequiresVerifiedAdapterCapability()
+    {
+        var registry = new AdapterCapabilityRegistry();
+        registry.Register(new AdapterCapability("dotnet-fixture", "scan", CompatibilityStatus.Verified, "real-project-proof"));
+        registry.EnsureExecutable("dotnet-fixture", "scan");
+        Assert.Throws<NotSupportedException>(() => registry.EnsureExecutable("dotnet-fixture", "mutate"));
+    }
+
     private static ProjectKnowledgeNode Node(string path, string content)
     {
         var hash = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(content)));
