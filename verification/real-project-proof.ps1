@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$ProjectRoot)
+param([string]$ProjectRoot, [string]$EvidencePath)
 
 $ErrorActionPreference = 'Stop'
 $ProjectRoot = if ($ProjectRoot) { $ProjectRoot } else { Join-Path (Split-Path $PSScriptRoot -Parent) 'fixtures\real-project-dotnet' }
@@ -23,7 +23,7 @@ $fixtureBytes = (Get-ChildItem $ProjectRoot -File -Recurse | Measure-Object Leng
 $profile = if ($fixtureBytes -le 1MB) { 'Small' } elseif ($fixtureBytes -le 100MB) { 'Medium' } elseif ($fixtureBytes -le 1GB) { 'Large' } else { 'Stress' }
 $timeBudget = @{ Small = 10000; Medium = 60000; Large = 600000; Stress = $null }[$profile]
 if ($null -ne $timeBudget -and $timer.ElapsedMilliseconds -gt $timeBudget) { throw "$profile profile time budget exceeded." }
-[pscustomobject]@{
+$evidence = [pscustomobject]@{
     Project = (Resolve-Path $ProjectRoot).Path
     BaselineSha256 = $baseline
     ChangedSha256 = $changed
@@ -33,4 +33,6 @@ if ($null -ne $timeBudget -and $timer.ElapsedMilliseconds -gt $timeBudget) { thr
     Profile = $profile
     ThresholdMilliseconds = $timeBudget
     Proof = 'PASS'
-} | ConvertTo-Json | Write-Output
+} | ConvertTo-Json
+if ($EvidencePath) { $evidence | Set-Content $EvidencePath -Encoding utf8 }
+$evidence | Write-Output
