@@ -1,7 +1,8 @@
 [CmdletBinding()]
-param([string]$ProjectRoot = (Join-Path $PSScriptRoot '..\fixtures\real-project-dotnet'))
+param([string]$ProjectRoot)
 
 $ErrorActionPreference = 'Stop'
+$ProjectRoot = if ($ProjectRoot) { $ProjectRoot } else { Join-Path (Split-Path $PSScriptRoot -Parent) 'fixtures\real-project-dotnet' }
 $program = Join-Path $ProjectRoot 'Program.cs'
 $original = Get-Content $program -Raw
 dotnet build (Join-Path $ProjectRoot 'RealProjectProof.csproj') --configuration Release --nologo | Out-Host
