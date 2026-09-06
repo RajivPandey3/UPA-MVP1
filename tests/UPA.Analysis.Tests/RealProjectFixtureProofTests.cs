@@ -49,6 +49,20 @@ public sealed class RealProjectFixtureProofTests
             new ProjectScanner().ScanAsync(new ScanContext(root), cancellation.Token));
     }
 
+    [Fact]
+    public async Task RealDotnetFixture_CanResumeAfterCancellation()
+    {
+        var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../fixtures/real-project-dotnet"));
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+        await Assert.ThrowsAsync<OperationCanceledException>(() =>
+            new ProjectScanner().ScanAsync(new ScanContext(root), cancellation.Token));
+
+        var resumed = await new ProjectScanner().ScanAsync(new ScanContext(root));
+        Assert.Equal("real-project-dotnet", resumed.ProjectName);
+        Assert.Empty(resumed.Diagnostics);
+    }
+
     private static ProjectKnowledgeNode Node(string path, string content)
     {
         var hash = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(content)));
