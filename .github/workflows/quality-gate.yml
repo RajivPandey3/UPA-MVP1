@@ -33,6 +33,12 @@ jobs:
           if ($audit -match '(?im)\b(High|Critical)\b' -and $audit -notmatch '(?im)no vulnerabilities') {
             throw "High/Critical dependency vulnerability detected."
           }
+      - name: Real project proof
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path verification/ci-evidence -Force | Out-Null
+          ./verification/real-project-proof.ps1 -EvidencePath verification/ci-evidence/real-project-proof.json
+          if ($LASTEXITCODE -ne 0) { throw "Real project proof failed." }
       - name: Capture environment and evidence manifest
         if: always()
         shell: pwsh
