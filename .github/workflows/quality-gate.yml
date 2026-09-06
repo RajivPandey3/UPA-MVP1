@@ -18,10 +18,14 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.x
+      - name: Restore, build, test and recovery proof
+        shell: pwsh
+        env:
+          UPA_PERF_PROFILE: small
+        run: ./verify-mvp1.ps1 -ResultsPath verification/ci-evidence
       - name: Dependency vulnerability audit
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Path verification/ci-evidence -Force | Out-Null
           dotnet list UPA-MVP1.sln package --vulnerable --include-transitive 2>&1 |
             Tee-Object verification/ci-evidence/dependency-audit.log
           if ($LASTEXITCODE -ne 0) { throw "Dependency audit command failed." }
@@ -29,11 +33,6 @@ jobs:
           if ($audit -match '(?im)\b(High|Critical)\b' -and $audit -notmatch '(?im)no vulnerabilities') {
             throw "High/Critical dependency vulnerability detected."
           }
-      - name: Restore, build, test and recovery proof
-        shell: pwsh
-        env:
-          UPA_PERF_PROFILE: small
-        run: ./verify-mvp1.ps1 -ResultsPath verification/ci-evidence
       - name: Capture environment and evidence manifest
         if: always()
         shell: pwsh
