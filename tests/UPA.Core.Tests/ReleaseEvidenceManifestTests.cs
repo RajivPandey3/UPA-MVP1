@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace UPA.Core.Tests;
@@ -22,5 +23,11 @@ public sealed class ReleaseEvidenceManifestTests
 
         Assert.Equal(ReleaseEvidenceManifest.Fingerprint(new[] { first, second }),
             ReleaseEvidenceManifest.Fingerprint(new[] { second, first }));
+    }
+
+    [Fact]
+    public void Create_RejectsInvalidHash()
+    {
+        Assert.Throws<ArgumentException>(() => ReleaseEvidenceManifest.Create("proof", "bad", 1));
     }
 }
