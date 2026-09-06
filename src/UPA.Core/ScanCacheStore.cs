@@ -21,4 +21,14 @@ public sealed class ScanCacheStore
         var path = Path.Combine(directory, $"{key}.cache");
         return File.Exists(path) ? File.ReadAllText(path) : null;
     }
+
+    public bool Invalidate(string directory, string key)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(directory);
+        ArgumentException.ThrowIfNullOrWhiteSpace(key);
+        var path = Path.Combine(directory, $"{key}.cache");
+        if (!File.Exists(path)) return false;
+        File.Delete(path);
+        return true;
+    }
 }

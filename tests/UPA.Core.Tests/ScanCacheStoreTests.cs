@@ -15,6 +15,9 @@ public sealed class ScanCacheStoreTests : IDisposable
         store.Save(_directory, "key-a", "payload");
         Assert.Equal("payload", store.Load(_directory, "key-a"));
         Assert.Null(store.Load(_directory, "key-b"));
+        Assert.True(store.Invalidate(_directory, "key-a"));
+        Assert.Null(store.Load(_directory, "key-a"));
+        Assert.False(store.Invalidate(_directory, "key-a"));
     }
 
     public void Dispose() { if (Directory.Exists(_directory)) Directory.Delete(_directory, true); }
