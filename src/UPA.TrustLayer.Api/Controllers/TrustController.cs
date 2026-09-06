@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using UPA.TrustLayer.Api.Contracts;
 using UPA.TrustLayer.Api.Services;
 
@@ -58,7 +58,11 @@ public sealed class TrustController : ControllerBase
         {
             return Conflict(new TrustErrorResponse
             {
-                Code = ex.GetType().Name == "IdempotencyConflictException" ? "IDEMPOTENCY_CONFLICT" : "BUNDLE_COLLISION",
+                Code = ex.GetType().Name ==
+  "IdempotencyConflictException" ||
+                       ex.Message.Contains("existing RunId", StringComparison.OrdinalIgnoreCase)
+                    ? "IDEMPOTENCY_CONFLICT" :
+  "BUNDLE_COLLISION",
                 Message = ex.Message
             });
         }
@@ -115,3 +119,5 @@ public sealed class TrustController : ControllerBase
         }
     }
 }
+
+
