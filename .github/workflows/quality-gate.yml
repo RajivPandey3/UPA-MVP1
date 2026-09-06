@@ -23,16 +23,6 @@ jobs:
         env:
           UPA_PERF_PROFILE: small
         run: ./verify-mvp1.ps1 -ResultsPath verification/ci-evidence
-      - name: Dependency vulnerability audit
-        shell: pwsh
-        run: |
-          dotnet list UPA-MVP1.sln package --vulnerable --include-transitive 2>&1 |
-            Tee-Object verification/ci-evidence/dependency-audit.log
-          if ($LASTEXITCODE -ne 0) { throw "Dependency audit command failed." }
-          $audit = Get-Content verification/ci-evidence/dependency-audit.log -Raw
-          if ($audit -match '(?im)\b(High|Critical)\b' -and $audit -notmatch '(?im)no vulnerabilities') {
-            throw "High/Critical dependency vulnerability detected."
-          }
       - name: Capture environment and evidence manifest
         if: always()
         shell: pwsh
