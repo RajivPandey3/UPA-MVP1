@@ -38,6 +38,17 @@ public sealed class RealProjectFixtureProofTests
         finally { File.WriteAllText(path, original); }
     }
 
+    [Fact]
+    public async Task RealDotnetFixture_CancelledScanFailsFast()
+    {
+        var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../fixtures/real-project-dotnet"));
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+
+        await Assert.ThrowsAsync<OperationCanceledException>(() =>
+            new ProjectScanner().ScanAsync(new ScanContext(root), cancellation.Token));
+    }
+
     private static ProjectKnowledgeNode Node(string path, string content)
     {
         var hash = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(content)));
