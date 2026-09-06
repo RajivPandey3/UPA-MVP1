@@ -63,6 +63,19 @@ public sealed class RealProjectFixtureProofTests
         Assert.Empty(resumed.Diagnostics);
     }
 
+    [Fact]
+    public void RealDotnetFixture_RepeatedScansHaveStableIdentity()
+    {
+        var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../fixtures/real-project-dotnet"));
+        var scanner = new ProjectScanner();
+        var first = scanner.Scan(new ScanContext(root));
+        var second = scanner.Scan(new ScanContext(root));
+
+        Assert.Equal(first.ProjectId, second.ProjectId);
+        Assert.Equal(first.ProjectName, second.ProjectName);
+        Assert.Equal(first.ProjectRoot, second.ProjectRoot);
+    }
+
     private static ProjectKnowledgeNode Node(string path, string content)
     {
         var hash = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(content)));
